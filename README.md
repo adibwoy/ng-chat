@@ -1,5 +1,10 @@
 # NgChat
 
+## Installation Steps
+1. Clone this repo
+2. npm install
+3. ng serve and see the app on http://localhost:4200
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.1.1.
 
 ## Development server
