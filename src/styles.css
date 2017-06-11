@@ -125,7 +125,7 @@ html, body {
 .sent, .received {
   border-radius: 6px;
   padding: 6px;
-  margin: 6px;
+  margin: 12px 6px;
   max-width: 50%;
   color: white;
 }
