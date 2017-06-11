@@ -59,6 +59,9 @@ body {
 }
 
 .message-history {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   flex: 1 1 auto;
   padding: 12px 24px;
 }
@@ -93,4 +96,12 @@ body {
   padding: 3px;
   outline: 0;
   cursor: pointer;
+}
+
+.chat-window-header {
+  height: 36px;
+  text-align: center;
+  line-height: 36px;
+  background: #5AE8FD;
+  margin: 6px;
 }

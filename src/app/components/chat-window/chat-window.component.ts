@@ -60,6 +60,10 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
     return this._receiverId;
   }
 
+  get receiverName(): string {
+    return this.userService.getUserInfo(this.receiverId).name;
+  }
+
   @Input()
   set receiverId(value: number) {
     if (typeof value === "number") {
