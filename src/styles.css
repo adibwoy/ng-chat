@@ -1,9 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
-body {
+html, body {
   padding: 0;
   margin: 0;
   font-family: "Space Mono", monospace;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /*Main Container*/
@@ -12,12 +14,14 @@ body {
   flex-direction: column;
 
   height: 100vh;
+  overflow: hidden;
 }
 
 /*Header*/
 .header {
   display: flex;
   background: #222222;
+  flex: 0 0 auto;
 
   height: 60px;
   color: #FFFFFF;
@@ -48,6 +52,7 @@ body {
   justify-content: space-between;
   flex: 1 1 auto;
   padding: 24px;
+  overflow: hidden;
 }
 
 /*Chat Window*/
@@ -56,6 +61,16 @@ body {
   flex-direction: column;
   width: 500px;
   border: 1px solid;
+  overflow: hidden;
+}
+
+.chat-window-header {
+  flex: 0 0 auto;
+  height: 36px;
+  text-align: center;
+  line-height: 36px;
+  background: #5AE8FD;
+  margin: 6px;
 }
 
 .message-history {
@@ -64,10 +79,16 @@ body {
   justify-content: flex-end;
   flex: 1 1 auto;
   padding: 12px 24px;
+  overflow: hidden;
+}
+
+.messages {
+  overflow: scroll;
 }
 
 .user-input {
   display: flex;
+  flex: 0 0 auto;
   height: 36px;
   padding: 6px;
   border: 6px solid #222222;
@@ -98,14 +119,6 @@ body {
   cursor: pointer;
 }
 
-.chat-window-header {
-  height: 36px;
-  text-align: center;
-  line-height: 36px;
-  background: #5AE8FD;
-  margin: 6px;
-}
-
 /*Message Bubbles*/
 
 .sent, .received {
@@ -117,10 +130,9 @@ body {
 
 .sent {
   background: #E46A6B;
-  align-self: flex-start;
 }
 
 .received {
   background: #29FCA5;
-  align-self: flex-end;
+  margin-left: auto;
 }
