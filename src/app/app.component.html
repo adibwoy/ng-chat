@@ -1,5 +1,6 @@
 <!--The whole content below can be removed with the new code.-->
 <div>
-  <app-chat-window></app-chat-window>
+  <app-chat-window [senderId]="robsId" [receiverId]="laurasId"></app-chat-window>
+  <app-chat-window [receiverId]="robsId" [senderId]="laurasId"></app-chat-window>
 </div>
 

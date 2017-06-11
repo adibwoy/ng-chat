@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import {MessageService} from "../../services/message.service";
 import {User} from "../../model/user";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-chat-window',
@@ -11,7 +12,7 @@ import {User} from "../../model/user";
   styleUrls: ['./chat-window.component.css'],
   providers: [UserService]
 })
-export class ChatWindowComponent implements OnInit {
+export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
 
   messages: string[] = [];
 
@@ -45,7 +46,7 @@ export class ChatWindowComponent implements OnInit {
        * but I am doing it here because this is where the Sender ID is actually
        * initialized
        */
-      this.messageService.register(value, this.receiver);
+      this.messageService.register(value, this.messengerObs);
     }
   }
 
@@ -72,14 +73,25 @@ export class ChatWindowComponent implements OnInit {
    * The receiver will subscribe to this observable
    * @returns {Observable<String>}
    */
-  get receiver(): Observable<String> {
+  get messengerObs(): Observable<String> {
     return this.messenger.asObservable();
   }
+
+  private receiverSub: Subscription;
 
   constructor(private userService: UserService, private messageService: MessageService) {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    const receiver: Observable<string> = this.messageService.subscribe(this.receiverId);
+    if (receiver) {
+      this.receiverSub = receiver.subscribe((message) => {
+        console.log(message);
+      });
+    }
   }
 
   populateUserInfo(id: number): void {
@@ -89,6 +101,13 @@ export class ChatWindowComponent implements OnInit {
     } else {
       throw new Error("User not found");
     }
+  }
+
+  sendMessage(): void {
+  }
+
+  ngOnDestroy() {
+    this.receiverSub.unsubscribe();
   }
 
 }

@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs/Observable";
+import {Subscription} from "rxjs/Subscription";
 
 @Injectable()
 export class MessageService {
@@ -9,8 +10,12 @@ export class MessageService {
   constructor() {
   }
 
-  register(userId: number, userReceiver: Observable<string>) {
+  register(userId: number, userReceiver: Observable<string>): void {
     this.userMap.set(userId, userReceiver);
+  }
+
+  subscribe(id: number): Observable<string> {
+    return this.userMap.get(id);
   }
 
 }
