@@ -1,7 +1,10 @@
 <div>
-  <span *ngFor="let message of messages">
-    {{message}}
-  </span>
+  <div>
+    <span *ngFor="let message of messages">
+      {{message.message}}
+      {{message.timeStamp}}
+    </span>
+  </div>
   <input type="text" [(ngModel)]="message"/>
   <button (click)="sendMessage()">Send</button>
 </div>

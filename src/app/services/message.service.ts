@@ -1,20 +1,20 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs/Observable";
-import {Subscription} from "rxjs/Subscription";
+import {Message} from "../model/message";
 
 @Injectable()
 export class MessageService {
 
-  userMap: Map<number, Observable<string>> = new Map<number, Observable<string>>();
+  userMap: Map<number, Observable<Message>> = new Map<number, Observable<Message>>();
 
   constructor() {
   }
 
-  register(userId: number, userReceiver: Observable<string>): void {
+  register(userId: number, userReceiver: Observable<Message>): void {
     this.userMap.set(userId, userReceiver);
   }
 
-  subscribe(id: number): Observable<string> {
+  subscribe(id: number): Observable<Message> {
     return this.userMap.get(id);
   }
 

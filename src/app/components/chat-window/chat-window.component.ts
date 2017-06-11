@@ -5,6 +5,7 @@ import {Observable} from "rxjs/Observable";
 import {MessageService} from "../../services/message.service";
 import {User} from "../../model/user";
 import {Subscription} from "rxjs/Subscription";
+import {Message} from "../../model/message";
 
 @Component({
   selector: 'app-chat-window',
@@ -14,7 +15,7 @@ import {Subscription} from "rxjs/Subscription";
 })
 export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
 
-  messages: string[] = [];
+  messages: Message[] = [];
 
   message: string = "";
 
@@ -69,13 +70,13 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
    * Will be used to send the message
    * @type {Subject<string>}
    */
-  messenger: Subject<String> = new Subject<string>();
+  messenger: Subject<Message> = new Subject<Message>();
 
   /**
    * The receiver will subscribe to this observable
    * @returns {Observable<String>}
    */
-  get messengerObs(): Observable<String> {
+  get messengerObs(): Observable<Message> {
     return this.messenger.asObservable();
   }
 
@@ -91,14 +92,21 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
    * Connect to the receiver
    */
   ngAfterViewInit() {
-    const receiver: Observable<string> = this.messageService.subscribe(this.receiverId);
+    // The receiver would retrieve the message history from the database here
+    // every time the connection is view is loaded.
+
+    const receiver: Observable<Message> = this.messageService.subscribe(this.receiverId);
     if (receiver) {
       this.receiverSub = receiver.subscribe((message) => {
-        console.log(this.name + " received: " + message);
+        this.messages.push(message);
       });
     }
   }
 
+  /**
+   * Populates user info
+   * @param id
+   */
   populateUserInfo(id: number): void {
     const user: User = this.userService.getUserInfo(id);
     if (user) {
@@ -108,16 +116,34 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * Sends message to the receiver
+   */
   sendMessage(): void {
     if (this.message) {
       // Send Message
-      this.messenger.next(this.message);
+
+      const newMessage: Message = new Message(this.message, this.senderId, this.receiverId);
+
+      this.messages.push(newMessage);
+
+      this.messenger.next(
+        newMessage
+      );
 
       // Clear Message
       this.message = "";
+
+      // The sender would save the messages array to the database
+      // That way both sender and receiver have the same history
+      // Each time the connection is re-established the message array is
+      // retrieved from the database
     }
   }
 
+  /**
+   * Unsubscribes
+   */
   ngOnDestroy() {
     this.receiverSub.unsubscribe();
   }
