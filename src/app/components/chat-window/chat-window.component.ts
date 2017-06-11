@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
@@ -15,6 +15,8 @@ import {Message} from "../../model/message";
   host: {'class': 'chat-window'}
 })
 export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
+
+  @ViewChild("messageContainer") messagesContainer;
 
   messages: Message[] = [];
 
@@ -127,6 +129,7 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
     if (receiver) {
       this.receiverSub = receiver.subscribe((message) => {
         this.messages.push(message);
+        this.scrollToBottom();
       });
     }
 
@@ -171,6 +174,17 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
       // That way both sender and receiver have the same history
       // Each time the connection is re-established the message array is
       // retrieved from the database
+
+      this.scrollToBottom();
+    }
+  }
+
+  scrollToBottom() {
+    if (this.messagesContainer) {
+      // Set timeout to scroll after the view has been updated with the new message
+      setTimeout(() => {
+        this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
+      }, 0);
     }
   }
 

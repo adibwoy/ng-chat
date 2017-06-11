@@ -7,7 +7,7 @@
   </ng-container>
 </div>
 <div class="message-history">
-  <div class="messages">
+  <div class="messages" #messageContainer>
     <ng-container *ngFor="let message of messages">
       <div *ngIf="message.sentBy === senderId" class="sent">
         {{message.message}}
