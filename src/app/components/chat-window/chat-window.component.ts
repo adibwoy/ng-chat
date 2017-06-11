@@ -16,6 +16,8 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
 
   messages: string[] = [];
 
+  message: string = "";
+
   /**
    * ID of this chat window's sender. This could be used to get info
    * like user details etc.
@@ -85,11 +87,14 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
   ngOnInit() {
   }
 
+  /**
+   * Connect to the receiver
+   */
   ngAfterViewInit() {
     const receiver: Observable<string> = this.messageService.subscribe(this.receiverId);
     if (receiver) {
       this.receiverSub = receiver.subscribe((message) => {
-        console.log(message);
+        console.log(this.name + " received: " + message);
       });
     }
   }
@@ -104,6 +109,13 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
   }
 
   sendMessage(): void {
+    if (this.message) {
+      // Send Message
+      this.messenger.next(this.message);
+
+      // Clear Message
+      this.message = "";
+    }
   }
 
   ngOnDestroy() {
