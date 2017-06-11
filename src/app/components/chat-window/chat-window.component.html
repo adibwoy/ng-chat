@@ -5,6 +5,8 @@
   </span>
 </div>
 <div class="user-input">
-  <input type="text" [(ngModel)]="message"/>
-  <button type="button" (click)="sendMessage()">Send</button>
+  <input type="text" [(ngModel)]="message" placeholder="..."/>
+  <button type="button" (click)="sendMessage()">
+    <img src="../../../assets/send.svg" alt="">
+  </button>
 </div>

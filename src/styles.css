@@ -14,7 +14,6 @@ body {
   height: 100vh;
 }
 
-
 /*Header*/
 .header {
   display: flex;
@@ -56,24 +55,42 @@ body {
   display: flex;
   flex-direction: column;
   width: 500px;
-  background: cyan;
+  border: 1px solid;
 }
 
 .message-history {
   flex: 1 1 auto;
+  padding: 12px 24px;
 }
 
 .user-input {
   display: flex;
-  height: 48px;
+  height: 36px;
+  padding: 6px;
+  border: 6px solid #222222;
 }
 
 .user-input input {
-  border: none;
+  flex: 1 1 auto;
   display: block;
-  height: 100%;
+
+  border: 1px solid #222222;
+  height: 30px;
+
+  font-size: 12px;
+  padding: 0 6px;
+
+  /*Bad practice but removing for this demo app*/
+  outline: none;
 }
 
 .user-input button {
-
+  border: none;
+  background: #222222;
+  height: 32px;
+  width: 32px;
+  margin: 0;
+  padding: 3px;
+  outline: 0;
+  cursor: pointer;
 }
