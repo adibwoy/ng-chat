@@ -105,3 +105,22 @@ body {
   background: #5AE8FD;
   margin: 6px;
 }
+
+/*Message Bubbles*/
+
+.sent, .received {
+  border-radius: 6px;
+  padding: 6px;
+  margin: 6px;
+  max-width: 50%;
+}
+
+.sent {
+  background: #E46A6B;
+  align-self: flex-start;
+}
+
+.received {
+  background: #29FCA5;
+  align-self: flex-end;
+}
