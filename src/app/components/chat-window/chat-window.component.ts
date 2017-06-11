@@ -147,7 +147,7 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
   }
 
   /**
-   * Unsubscribes
+   * Unsubscribe
    */
   ngOnDestroy() {
     this.receiverSub.unsubscribe();
