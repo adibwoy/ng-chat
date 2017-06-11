@@ -6,11 +6,15 @@
     <ng-container *ngFor="let message of messages">
       <div *ngIf="message.sentBy === senderId" class="sent">
         {{message.message}}
-        {{message.timeStamp}}
+        <div class="timestamp">
+          {{message.timeStamp}}
+        </div>
       </div>
       <div *ngIf="message.sentBy === receiverId" class="received">
         {{message.message}}
-        {{message.timeStamp}}
+        <div class="timestamp">
+          {{message.timeStamp}}
+        </div>
       </div>
     </ng-container>
   </div>

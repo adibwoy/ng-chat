@@ -3,7 +3,7 @@
 html, body {
   padding: 0;
   margin: 0;
-  font-family: "Space Mono", monospace;
+  font-family: "PT Mono", monospace;
   height: 100vh;
   overflow: hidden;
 }
@@ -69,7 +69,8 @@ html, body {
   height: 36px;
   text-align: center;
   line-height: 36px;
-  background: #5AE8FD;
+  background: #222222;
+  color: #FFFFFF;
   margin: 6px;
 }
 
@@ -126,13 +127,20 @@ html, body {
   padding: 6px;
   margin: 6px;
   max-width: 50%;
+  color: white;
 }
 
 .sent {
-  background: #E46A6B;
+  background: #DB2B39;
 }
 
 .received {
-  background: #29FCA5;
+  background: #E28413;
   margin-left: auto;
+}
+
+.timestamp {
+  margin: 3px;
+  font-size: 9px;
+  text-align: right;
 }
