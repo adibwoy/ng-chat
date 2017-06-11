@@ -1,1 +1,79 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Space Mono", monospace;
+}
+
+/*Main Container*/
+.main-container {
+  display: flex;
+  flex-direction: column;
+
+  height: 100vh;
+}
+
+
+/*Header*/
+.header {
+  display: flex;
+  background: #222222;
+
+  height: 60px;
+  color: #FFFFFF;
+}
+
+.branding {
+  line-height: 60px;
+  padding: 0 24px;
+}
+
+.logo {
+  padding: 6px;
+}
+
+.logo, .logo:link, .logo:visited {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: #222222;
+  background: #29FCA5;
+}
+
+/*Content Container*/
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex: 1 1 auto;
+  padding: 24px;
+}
+
+/*Chat Window*/
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  background: cyan;
+}
+
+.message-history {
+  flex: 1 1 auto;
+}
+
+.user-input {
+  display: flex;
+  height: 48px;
+}
+
+.user-input input {
+  border: none;
+  display: block;
+  height: 100%;
+}
+
+.user-input button {
+
+}

@@ -11,7 +11,8 @@ import {Message} from "../../model/message";
   selector: 'app-chat-window',
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.css'],
-  providers: [UserService]
+  providers: [UserService],
+  host: {'class': 'chat-window'}
 })
 export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
 

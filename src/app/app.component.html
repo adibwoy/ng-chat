@@ -1,6 +1,13 @@
 <!--The whole content below can be removed with the new code.-->
-<div>
-  <app-chat-window [senderId]="robsId" [receiverId]="laurasId"></app-chat-window>
-  <app-chat-window [receiverId]="robsId" [senderId]="laurasId"></app-chat-window>
-</div>
+<main class="main-container">
+  <header class="header">
+    <div class="branding">
+      <a class="logo" href="#">ng-chat</a>
+    </div>
+  </header>
+  <section class="container">
+    <app-chat-window [senderId]="robsId" [receiverId]="laurasId"></app-chat-window>
+    <app-chat-window [receiverId]="robsId" [senderId]="laurasId"></app-chat-window>
+  </section>
+</main>
 
