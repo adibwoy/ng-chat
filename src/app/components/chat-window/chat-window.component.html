@@ -1,5 +1,10 @@
 <div class="chat-window-header">
-  {{receiverName}}
+  <ng-container *ngIf="receiverTyping">
+    {{receiverName}} is typing...
+  </ng-container>
+  <ng-container *ngIf="!receiverTyping">
+    {{receiverName}}
+  </ng-container>
 </div>
 <div class="message-history">
   <div class="messages">

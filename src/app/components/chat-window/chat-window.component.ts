@@ -18,7 +18,20 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
 
   messages: Message[] = [];
 
-  message: string = "";
+  private _message: string = "";
+
+  get message(): string {
+    return this._message;
+  }
+
+  set message(value: string) {
+    this._message = value;
+    if (this.message) {
+      this.typing.next(true);
+    } else {
+      this.typing.next(false);
+    }
+  }
 
   /**
    * ID of this chat window's sender. This could be used to get info
@@ -51,6 +64,7 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
        * initialized
        */
       this.messageService.register(value, this.messengerObs);
+      this.messageService.registerTypingListener(value, this.typingObs);
     }
   }
 
@@ -71,11 +85,13 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
     }
   }
 
+  receiverTyping: boolean = false;
+
   /**
    * Will be used to send the message
    * @type {Subject<string>}
    */
-  messenger: Subject<Message> = new Subject<Message>();
+  private messenger: Subject<Message> = new Subject<Message>();
 
   /**
    * The receiver will subscribe to this observable
@@ -85,7 +101,14 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
     return this.messenger.asObservable();
   }
 
+  private typing: Subject<boolean> = new Subject<boolean>();
+
+  get typingObs(): Observable<boolean> {
+    return this.typing.asObservable();
+  }
+
   private receiverSub: Subscription;
+  private receiverTypingSub: Subscription;
 
   constructor(private userService: UserService, private messageService: MessageService) {
   }
@@ -106,6 +129,11 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
         this.messages.push(message);
       });
     }
+
+    const receiverTyping: Observable<boolean> = this.messageService.subscribeTyping(this.receiverId);
+    if (receiverTyping) {
+      this.receiverTypingSub = receiverTyping.subscribe(typing => this.receiverTyping = typing);
+    }
   }
 
   /**
@@ -125,10 +153,10 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
    * Sends message to the receiver
    */
   sendMessage(): void {
-    if (this.message) {
+    if (this._message) {
       // Send Message
 
-      const newMessage: Message = new Message(this.message, this.senderId, this.receiverId);
+      const newMessage: Message = new Message(this._message, this.senderId, this.receiverId);
 
       this.messages.push(newMessage);
 
@@ -151,6 +179,7 @@ export class ChatWindowComponent implements OnDestroy, OnInit, AfterViewInit {
    */
   ngOnDestroy() {
     this.receiverSub.unsubscribe();
+    this.receiverTypingSub.unsubscribe();
   }
 
 }
